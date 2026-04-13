@@ -1,0 +1,16 @@
+node_modules/
+dist/
+build/
+cache/
+artifacts/
+typechain-types/
+coverage/
+coverage.json
+.env
+*.log
+deployments/*.json
+!deployments/.gitkeep
+frontend/.next/
+frontend/out/
+offchain/dist/
+sdk/dist/
