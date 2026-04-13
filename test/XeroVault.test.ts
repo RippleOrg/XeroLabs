@@ -213,18 +213,9 @@ describe("XeroVault", function () {
       await usdc.connect(alice).approve(await vault.getAddress(), depositAmount);
       await vault.connect(alice).deposit(depositAmount, alice.address);
 
-      // Manually deposit all vault USDC into T-bill strategy
-      const vaultBalance = await usdc.balanceOf(await vault.getAddress());
-      if (vaultBalance > 0n) {
-        // Router is owned by vault, so only vault can call depositToStrategy
-        // The queue is triggered when vault balance < withdrawal amount
-        // For testing, we just verify the queue exists and is initially empty
-        const queueLen = await vault.withdrawalQueue.length;
-        // withdrawalQueue is an array getter — check initial state
-        // (queue is empty at fixture start)
-      }
-
       // Verify the vault totalAssets is at least the deposited amount
+      // (withdrawal queue is only triggered when strategy funds are locked,
+      //  which doesn't apply here since no funds have been deployed to T-bill yet)
       const ta = await vault.totalAssets();
       expect(ta).to.be.gte(depositAmount);
     });

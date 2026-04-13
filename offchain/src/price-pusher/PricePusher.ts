@@ -81,7 +81,7 @@ export class PricePusher {
 
   private assetStates: Map<string, AssetState> = new Map();
   private running     = false;
-  private pollTimer:  NodeJS.Timer | null = null;
+  private pollTimer:  NodeJS.Timeout | null = null;
   private failCount   = 0;
   private gasToday    = 0n;
   private pushCount   = 0;
@@ -122,7 +122,7 @@ export class PricePusher {
     if (!this.running) return;
     this.running = false;
     if (this.pollTimer) {
-      clearInterval(this.pollTimer as unknown as number);
+      clearInterval(this.pollTimer);
       this.pollTimer = null;
     }
     console.log("[PricePusher] Stopped.");

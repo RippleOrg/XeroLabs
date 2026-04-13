@@ -34,7 +34,7 @@ export class Rebalancer {
   private vault!:    ethers.Contract;
 
   private running   = false;
-  private timer:    NodeJS.Timer | null = null;
+  private timer:    NodeJS.Timeout | null = null;
 
   constructor(config: RebalancerConfig) {
     this.config = {
@@ -58,7 +58,7 @@ export class Rebalancer {
 
   stop(): void {
     this.running = false;
-    if (this.timer) { clearInterval(this.timer as unknown as number); this.timer = null; }
+    if (this.timer) { clearInterval(this.timer); this.timer = null; }
     console.log("[Rebalancer] Stopped.");
   }
 
